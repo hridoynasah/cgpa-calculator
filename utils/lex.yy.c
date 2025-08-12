@@ -678,7 +678,7 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 19 "lexer.l"
-;  // Ignore spaces/newlines
+;  /* Ignore spaces, tabs, newlines*/
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -1579,4 +1579,6 @@ int main()
 #line 21 "lexer.l"
 
 
-int yywrap() { return 1; }
+int yywrap() { 
+    return 1; 
+    }
