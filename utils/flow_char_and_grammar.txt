@@ -1,0 +1,130 @@
++-----------------------------+
+|          Start              |
++-------------+---------------+
+              |
+              v
+   +---------------------+
+   |  Read next token     | <--- (Lexer reads input characters)
+   +----------+----------+
+              |
+              v
++----------------------------+
+| Is input empty? (EOF)       |--Yes--> [End parsing]
++-------------+--------------+
+              |No
+              v
+    +--------------------+
+    | Token matches grade?|
+    +----------+---------+
+              |Yes
+              v
++----------------------------------+
+| Next token: THEORY or LAB or QUIT?|
++-----------+----------+------------+
+            |          |            
+           THEORY      LAB          QUIT
+            |          |            |
+            v          v            v
+   +-----------------------------+
+   | Add course with credits &    |
+   | calculate points             |
+   +-----------------------------+
+            |
+            v
+   +-----------------------------+
+   | Update total points, credits |
+   | Increase course count        |
+   +-----------------------------+
+            |
+            v
+   +---------------------+
+   |  Print prompt/menu   |
+   +---------------------+
+            |
+            v
+    [Go back to read next token]
+
+---
+
+If QUIT token:
++---------------------+
+| Stop parsing input   |
+| Show final CGPA      |
++---------------------+
+
+---
+
+Lexer details:
++---------------------+
+| Input chars read    |
++---------------------+
+           |
+           v
++-------------------------+
+| Match patterns in order: |
+|  "A+", "A", "B+", ...    |
+|  "t" → THEORY            |
+|  "l" → LAB               |
+|  "q" → QUIT              |
+|  whitespace skipped      |
+|  others returned as char |
++-------------------------+
+           |
+           v
+Return token to parser
+
+---
+
+Parser grammar summary:
+
+input:
+   ε
+ | input course
+
+course:
+   grade THEORY
+ | grade LAB
+ | QUIT
+
+grade:
+   APLUS | A | AMINUS | BPLUS | B | BMINUS | CPLUS | C | D | F
+
+---
+
+Overall data flow:
+
+User input (e.g. "A+ t") 
+   ↓
+Lexer produces tokens: APLUS, THEORY
+   ↓
+Parser applies `course → grade THEORY`
+   ↓
+Semantic action: add course, update totals
+   ↓
+Prompt for next input or quit
+
+---
+
+[Repeat until user enters 'q' (QUIT token)]
+
+
+
+
+
+input → ε
+       | input course
+
+course → grade THEORY
+        | grade LAB
+        | QUIT
+
+grade → APLUS
+       | A
+       | AMINUS
+       | BPLUS
+       | B
+       | BMINUS
+       | CPLUS
+       | C
+       | D
+       | F
