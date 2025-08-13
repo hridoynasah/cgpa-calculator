@@ -93,10 +93,6 @@ Current CGPA: 3.67
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contributing
-
-Feel free to fork this repository and submit pull requests. You can also open issues for bug reports or feature requests.
-
 ## Author
 
 [Hridoy Hasan](https://github.com/hridoynasah)

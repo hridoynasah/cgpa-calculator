@@ -1,45 +1,47 @@
+Flow Chart:
+
 +-----------------------------+
 |          Start              |
 +-------------+---------------+
               |
               v
    +---------------------+
-   |  Read next token     | <--- (Lexer reads input characters)
+   |  Read next token    | <--- (Lexer reads input characters)
    +----------+----------+
               |
               v
 +----------------------------+
-| Is input empty? (EOF)       |--Yes--> [End parsing]
+| Is input empty? (EOF)      |--Yes--> [End parsing]
 +-------------+--------------+
               |No
               v
-    +--------------------+
-    | Token matches grade?|
-    +----------+---------+
+    +----------------------+
+    | Token matches grade? |
+    +----------+-----------+
               |Yes
               v
-+----------------------------------+
-| Next token: THEORY or LAB or QUIT?|
-+-----------+----------+------------+
++-------------------------------------+
+| Next token: THEORY or LAB or QUIT?  |
++-----------+----------+--------------+
             |          |            
            THEORY      LAB          QUIT
             |          |            |
             v          v            v
-   +-----------------------------+
-   | Add course with credits &    |
-   | calculate points             |
-   +-----------------------------+
+   +-------------------------------+
+   | Add course with credits &     |
+   | calculate points              |
+   +-------------------------------+
             |
             v
-   +-----------------------------+
-   | Update total points, credits |
-   | Increase course count        |
-   +-----------------------------+
+   +-------------------------------+
+   | Update total points, credits  |
+   | Increase course count         |
+   +-------------------------------+
             |
             v
-   +---------------------+
+   +----------------------+
    |  Print prompt/menu   |
-   +---------------------+
+   +----------------------+
             |
             v
     [Go back to read next token]
@@ -47,10 +49,10 @@
 ---
 
 If QUIT token:
-+---------------------+
++----------------------+
 | Stop parsing input   |
 | Show final CGPA      |
-+---------------------+
++----------------------+
 
 ---
 
@@ -60,7 +62,7 @@ Lexer details:
 +---------------------+
            |
            v
-+-------------------------+
++--------------------------+
 | Match patterns in order: |
 |  "A+", "A", "B+", ...    |
 |  "t" → THEORY            |
@@ -68,14 +70,14 @@ Lexer details:
 |  "q" → QUIT              |
 |  whitespace skipped      |
 |  others returned as char |
-+-------------------------+
++--------------------------+
            |
            v
 Return token to parser
 
 ---
 
-Parser grammar summary:
+Parser grammar:
 
 input:
    ε
@@ -107,24 +109,3 @@ Prompt for next input or quit
 
 [Repeat until user enters 'q' (QUIT token)]
 
-
-
-
-
-input → ε
-       | input course
-
-course → grade THEORY
-        | grade LAB
-        | QUIT
-
-grade → APLUS
-       | A
-       | AMINUS
-       | BPLUS
-       | B
-       | BMINUS
-       | CPLUS
-       | C
-       | D
-       | F
